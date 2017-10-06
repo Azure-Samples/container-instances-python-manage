@@ -1,14 +1,10 @@
-from haikunator import Haikunator
 from utilities import AzureContext
 from azure.mgmt.resource import ResourceManagementClient
 from azure.mgmt.containerinstance import ContainerInstanceManagementClient
 from azure.mgmt.containerinstance.models import (ContainerGroup, Container, ContainerPort, Port, IpAddress, 
                                                  ResourceRequirements, ResourceRequests, ContainerGroupNetworkProtocol, OperatingSystemTypes)
 
-# TODO: document this
-
-haikunator = Haikunator()
-
+# See README for information on how to obtain a service principal attributes client id, secret, etc. for Azure
 azure_context = AzureContext(
       subscription_id = '<SUBSCRIPTION ID>',
       client_id = '<CLIENT ID>',
@@ -16,6 +12,8 @@ azure_context = AzureContext(
       tenant = '<TENANT ID (AZURE ACTIVE DIRECTORY)>'
    )
 
+# construct the clients
+resource_client = ResourceManagementClient(azure_context.credentials, azure_context.subscription_id)
 client = ContainerInstanceManagementClient(azure_context.credentials, azure_context.subscription_id)
 
 def main():
@@ -25,7 +23,7 @@ def main():
    # Define attributes of our container instance
    # ensure the resource group is created
    # Create the container
-   # Get the newly created container instance
+   # Retrieve and show the newly created container instance
    # delete and clean up
 
    list_container_groups()
@@ -33,21 +31,31 @@ def main():
    resource_group_name = "my-container-resource-group"
    name = "mycontainer"
    location = 'eastus'
-   image = "microsoft/aci-helloworld"
-   cpu = 1
-   memory = 1
-   
-   create_resource_group(resource_group_name, location)
 
-   create_container_group(resource_group_name, name, location, image, memory, cpu)
-   
+   resource_client.resource_groups.create_or_update(resource_group_name, { 'location': location })
+
+   create_container_group(resource_group_name = resource_group_name, 
+                          name = name, 
+                          location = location, 
+                          image = "microsoft/aci-helloworld", 
+                          memory = 1, 
+                          cpu = 1)
+
    show_container_group(resource_group_name, name)
 
-   client.container_groups.delete(resource_group_name, name)
+   delete_resources(resource_group_name, name)
 
-def create_resource_group(name, location):
-      resource_client = ResourceManagementClient(azure_context.credentials, azure_context.subscription_id)
-      resource_group = resource_client.resource_groups.create_or_update(name, { 'location': location })
+# Utility methods
+
+def list_container_groups():
+   container_groups = client.container_groups.list()
+
+   for container_group in container_groups:
+      print("\t{0}: {{ location: '{1}', containers: {2} }}".format(
+            container_group.name,
+            container_group.location, 
+            len(container_group.containers))
+      )
 
 def create_container_group(resource_group_name, name, location, image, memory, cpu):
 
@@ -55,11 +63,7 @@ def create_container_group(resource_group_name, name, location, image, memory, c
    port = 80
    container_resource_requirements = None
    command = None
-   command_line = None
    environment_variables = None
-   registry_login_server = None
-   registry_username = None
-   registry_password = None
 
    # set memory and cpu
    container_resource_requests = ResourceRequests(memory_in_gb = memory, cpu = cpu)
@@ -85,23 +89,16 @@ def create_container_group(resource_group_name, name, location, image, memory, c
 
    client.container_groups.create_or_update(resource_group_name, name, cgroup)
 
-def list_container_groups():
-   container_groups = client.container_groups.list()
-
-   for container_group in container_groups:
-      print("\t{0}: {{ location: '{1}', containers: {2} }}".format(
-            container_group.name,
-            container_group.location, 
-            len(container_group.containers))
-      )
-
 def show_container_group(resource_group_name, name):
-   cg = client.container_groups.get(resource_group_name, name)
+   cgroup = client.container_groups.get(resource_group_name, name)
 
    print('\n{0}\t\t\t{1}\t{2}'.format('name', 'location', 'provisioning state'))
    print('---------------------------------------------------')
-   print('{0}\t\t{1}\t\t{2}'.format(cg.name, cg.location, cg.provisioning_state))
+   print('{0}\t\t{1}\t\t{2}'.format(cgroup.name, cgroup.location, cgroup.provisioning_state))
 
-
+def delete_resources(resource_group_name, container_group_name): 
+   client.container_groups.delete(resource_group_name, container_group_name)
+   resource_client.resource_groups.delete(resource_group_name)
+   
 if __name__ == "__main__":
     main()
