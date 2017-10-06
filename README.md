@@ -1,7 +1,7 @@
 ---
 services: azure-containerinstance
 platforms: python
-author: kehilli
+author: kevinhillinger
 ---
 
 # Manage Azure Container Instances 
