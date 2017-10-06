@@ -46,9 +46,10 @@ You need to have the following installed on the development environment you will
 4. Install the dependencies using pip.
 
     ```
-    cd resource-manager-python-manage-container-instances
+    cd container-instances-python-manage
     pip install -r src/requirements.txt
     ```
+    
 ### Running the sample
 
 Run the sample by opening a terminal window and executing the following command:

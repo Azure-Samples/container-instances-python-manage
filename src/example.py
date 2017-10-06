@@ -9,19 +9,13 @@ from azure.mgmt.containerinstance.models import (ContainerGroup, Container, Cont
 
 haikunator = Haikunator()
 
-# azure_context = AzureContext(
-#       subscription_id = '<SUBSCRIPTION ID>',
-#       client_id = '<CLIENT ID>',
-#       client_secret = '<CLIENT SECRET>',
-#       tenant = '<TENANT ID (AZURE ACTIVE DIRECTORY)>'
-#    )
-
 azure_context = AzureContext(
-      subscription_id = '6c5159d3-e9b1-4eaf-b961-7d8c4717390a',
-      client_id = 'e6623e02-bceb-4499-bc4e-db4c47e44590',
-      client_secret = 'X38o+W0ZxV1iweEfdCWHa/QzQ+ghXNa3nCUWp0MZSzI=',
-      tenant = '72f988bf-86f1-41af-91ab-2d7cd011db47'
+      subscription_id = '<SUBSCRIPTION ID>',
+      client_id = '<CLIENT ID>',
+      client_secret = '<CLIENT SECRET>',
+      tenant = '<TENANT ID (AZURE ACTIVE DIRECTORY)>'
    )
+
 client = ContainerInstanceManagementClient(azure_context.credentials, azure_context.subscription_id)
 
 def main():
