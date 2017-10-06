@@ -1,57 +1,61 @@
-# Project Name
+---
+services: azure-containerinstance
+platforms: python
+author: kehilli
+---
 
-(short, 1-3 sentenced, description of the project)
+# Manage Azure Container Instances 
 
-## Features
+This sample shows how to use the Python SDK to create, retreive, and delete Azure Container Instances.
 
-This project framework provides the following features:
+**Outline**
 
-* Feature 1
-* Feature 2
-* ...
+- [Running the sample](#run)
+- [What is example.py doing?](#example)
+    - [Creating the manager](#create-credentials)
+      - Define a security context for connecting to Azure
+         - Set the subscription ID
+         - Add Client ID and Secret for specified Azure AD tenant
+    - [Defining and creating the container group](#create-group)
+   - [Deleting the container group](#deleting-group)
+<a id="run"></a>
+## Running the example
 
-## Getting Started
+### Setting up your environment
+You need to have the following installed on the development environment you will be running the sample from.
 
-### Prerequisites
+1. Install [Python](https://www.python.org/downloads/)
 
-(ideally very short, if any)
+2. Initialize a virtual environment (optional)
 
-- OS
-- Library version
-- ...
+   > TIP: using [virtual environnements](https://docs.python.org/3/tutorial/venv.html) is recommended, but not required. To initialize a virtual environment, run the following, replacing `<myvirtualenv> with the name you would like:
 
-### Installation
+    ```
+    pip install virtualenv
+    virtualenv <myvirtualenv>
+    cd <myvirtualenv>
+    source bin/activate
+    ```
 
-(ideally very short)
+3. Clone the repository.
 
-- npm install [package name]
-- mvn install
-- ...
+    ```
+    git clone https://github.com/Azure-Samples/container-instances-python-manage.git
+    ```
 
-### Quickstart
-(Add steps to get up and running quickly)
+4. Install the dependencies using pip.
 
-1. git clone [repository clone url]
-2. cd [respository name]
-3. ...
+    ```
+    cd resource-manager-python-manage-container-instances
+    pip install -r src/requirements.txt
+    ```
+### Running the sample
 
+Run the sample by opening a terminal window and executing the following command:
 
-## Demo
+```
+python src/example.py
+```
 
-A demo app is included to show how to use the project.
-
-To run the demo, follow these steps:
-
-(Add steps to start up the demo)
-
-1.
-2.
-3.
-
-## Resources
-
-(Any additional resources or related projects)
-
-- Link to supporting information
-- Link to similar sample
-- ...
+<a id="example"></a>
+## What is example.py doing?
