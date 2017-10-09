@@ -11,13 +11,14 @@ This sample shows how to use the Python SDK to create, retreive, and delete Azur
 ## Overview
 
 - [Getting Started](#start)
-   - Verify all prerequisites are installed
-   - [Ensure you have an Azure security principal](#security-principal)
-   - [Creating a security context](#create-credentials)
+   - Install prerequisites
+   - [Have an Azure security principal](#security-principal)
 - [Setup The Sample](#setup)
+   - Clone the repository
+   - Install packages
 - [Run The Sample](#run)
    - Update the placeholders
-   - Run example.py
+   - Execute example.py
 - [Understand The Code](#example)
    - Defining an Azure execution context
    - Constructing the Azure clients
@@ -64,7 +65,7 @@ Get or **create a security principal** to authenticate with the Azure subscripti
 
     ```
     cd container-instances-python-manage/src
-    pip install -r requirements.txt https://github.com/Azure-Samples/container-instances-python-manage.git
+    pip install -r requirements.txt
     ```
 
 <a id="run"></a>
@@ -88,8 +89,8 @@ azure_context = AzureContext(
 
 3. Save the changes made to `example.py`.
 
-### Run example.py
-Using the terminal window from the previous step, or opening a new window and changing the directory to `container-instances-python-manage/src` execute the following command:
+### Execute example.py
+Using the terminal window from the previous step, or opening a new window and changing the directory to `container-instances-python-manage/src`, and type the following command:
 
 ```
 python example.py
