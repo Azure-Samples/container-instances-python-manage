@@ -20,11 +20,11 @@ def main():
    """Azure Container instance example."""
 
    # List all the container instances in the subscription
-   # Define attributes of our container instance
-   # ensure the resource group is created
+   # Define attributes of the container instance
+   # Ensure the resource group is created
    # Create the container
    # Retrieve and show the newly created container instance
-   # delete and clean up
+   # Delete and clean up
 
    list_container_groups()
 
