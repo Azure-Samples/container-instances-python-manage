@@ -1,5 +1,5 @@
 ---
-services: azure-containerinstance
+services: containerinstance
 platforms: python
 author: kevinhillinger
 ---
