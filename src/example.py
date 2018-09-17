@@ -78,7 +78,7 @@ def create_container_group(resource_group_name, name, location, image, memory, c
 
    # defaults for container group
    cgroup_os_type = OperatingSystemTypes.linux
-   cgroup_ip_address = IpAddress(ports = [Port(protocol=ContainerGroupNetworkProtocol.tcp, port = port)])
+   cgroup_ip_address = IpAddress(type='public', ports = [Port(protocol=ContainerGroupNetworkProtocol.tcp, port = port)])
    image_registry_credentials = None
 
    cgroup = ContainerGroup(location = location,
