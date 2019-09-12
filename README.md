@@ -1,8 +1,13 @@
 ---
-services: containerinstance
-platforms: python
-author: kevinhillinger
+page_type: sample
+languages:
+- python
+products:
+- azure
+description: "This sample shows how to use the Python SDK to create, retreive, and delete Azure Container Instances."
+urlFragment: container-instances-python-manage
 ---
+
 
 # Manage Azure Container Instances 
 
